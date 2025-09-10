@@ -72,6 +72,7 @@ struct List {
             printf("%d -> ", aux->value);
             aux = aux->next;
         }
+        printf("\n");
     }
 
     // complexidade tempo: O(n)
@@ -90,18 +91,72 @@ struct List {
         return c;
     }
 
+    // O(1)
+    void popFront() {
+
+        if (empty()) return;
+
+        c--;
+
+        if (start == end) {
+            delete(start);
+            start = NULL;
+            end = NULL;
+            return;
+        }
+
+        Node *aux = start;
+        start = start->next;
+        delete(aux);
+
+    }
+
+    // O(n)
+    void popBack() {
+
+        if (empty()) return;
+
+        c--;
+
+        if (start == end) {
+            delete(start);
+            start = NULL;
+            end = NULL;
+            return;
+        }
+
+        Node *newEnd = start;
+        while (newEnd->next != end) {
+            newEnd = newEnd->next;
+        }
+
+        delete(end);
+        end = newEnd;
+        end->next = NULL;
+
+    }
+
 };
 
 int main() {
 
     List l;
 
-    l.pushBack(30);
-    l.pushBack(50);
-    l.pushBack(60);
-    l.pushFront(10);
-    l.pushFront(5);
+    l.pushBack(10);
+    l.pushBack(3);
+    l.pushBack(5);
+    l.pushBack(8);
 
+    l.print();
+    l.popBack();
+    l.print();
+    l.popBack();
+    l.print();
+    l.popBack();
+    l.print();
+    l.popBack();
+    l.print();
+    l.popBack();
     l.print();
 
     return 0;
